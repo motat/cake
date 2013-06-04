@@ -1,0 +1,135 @@
+/*###################################################################
+#  CSS NOTES
+#		
+#
+#
+####################################################################*/
+/* -------------------------------------------------------------- 
+   Reset
+-------------------------------------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, h7, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, span,
+dl, dt, dd, high, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section { display: block; }
+body { line-height: 1; }
+ol,ul {	list-style: none; }
+blockquote, q {	quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+a:link, a:visited, a:hover, a:active { text-decoration:none; color:inherit; font-weight:;}
+body { background-color:#e8fff0; }
+html,body { height:100% }
+
+/*#########################
+# COLORS:
+# Blue: #4f4fff
+# Green: #4fff89
+# Red: #ff4f4f
+#########################*/
+
+/*##############
+  Class
+##############*/
+.bar { height:20px; background-color:#4f4fff; width:100%; }
+.block { height:100px; margin:0 auto; }
+.blockxSmall {height:25px; margin:0 auto;}
+.blockSmall { height:50px; margin:0 auto; }
+.borderThick { border:5px; border-style:solid; }
+.borderTop { border:1px; border-top-style:solid; }
+.clear { clear:both; }
+.colSmallx { width:460px; margin:0 auto; }
+.colFull { width:100%; overflow:hidden; }
+.colLarge { width:75%; margin:0 auto; }
+.colMedium { width:50%; margin:0 auto; }
+.colSmall { width:20%; }
+.box { margin-left:20px; max-width:400px; margin-top:20px; border:3px; border-left-style:solid; }
+.dash { border:1px; width:150px; border-bottom-style:dashed; border-color:white; }
+.head { width:100%; padding:5px; background-color:#C9C9C9; }
+.left { float:left; overflow:hidden; }
+.nav { height:50px; background-color:black; width:100%; }
+.none { border:0; }
+.right { float:right; overflow:hidden; }
+.row { float:left; margin-right:50px; }
+.padSmall { padding:5px; }
+.padSmallx { padding:10px; }
+/*##############
+  ID
+##############*/
+#ballBlue, #ballGreen, #ballRed { margin-bottom:40px; margin-left:40px; }
+#ballBlue { background:url('images/blue.png'); width:112px; height:112px; background-repeat:no-repeat; float:left;}
+#ballGreen { background:url('images/green.png'); width:112px; height:112px; background-repeat:no-repeat; float:left;}
+#ballRed { background:url('images/red.png'); width:112px; height:112px; background-repeat:no-repeat;float:left;}
+#logDate { float:left; width:30%;  }
+#logInfo { float:right; width:70%; background-color:#c3e5cf; }
+/*##############
+  Font
+##############*/
+h1, h2, h3, h4, h5, h6 { color:black; font-family:helvetica; }
+
+h1 { font-size: 10em; }
+h2 { font-size: 5em; }
+h3 { font-size: 3em; }
+h4 { font-size: 2em; }
+h5 { font-size: 1.4em; }
+h6 { font-size: 1em; }
+
+.smallx { color:black; font-family:helvetica; }
+.blue { color:#4f4fff; }
+.grey { color: grey; }
+.green { color: #4fff89; }
+.red { color: #ff4f4f; }
+.small { font-size:1.2em; }
+.smallx { font-size:1.5em; }
+.medium { font-size:2em; }
+.large { font-size:3em; }
+.white { color:white;}
+.button { color:white; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
+
+.fButton { color:white; font-size:30px; padding: 5px; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
+/****************
+ - Form
+****************/
+input, button, textarea { background-color:#e8fff0;border:0px; color:black; font-size:30px; padding: 5px;}
+select { width:100%; color:black; font-size:30px; line-height:1.5em; padding:5px; }
+input { width:100%; line-height:1.5em; border: 1px; border-bottom-style:solid; }
+button { color:white; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
+textarea { width:100%; border:1px; border-style:solid; }
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #474747;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #474747;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #474747;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #474747;
+}
+ body { background-color:black; }
+ h1, h2, h3, h4, h5, h6 { color:white; font-family:helvetica; }
+      input { background-color:black; border-color:white; color: white;}
