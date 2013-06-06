@@ -2,7 +2,7 @@
     <div class='padSmallx'>
         <h3>Registration</h3>
         </br>
-            <h5>For better anonymity please use a username and password you've never used before</h5>
+            <span class='small'>For better anonymity please use a username and password you've never used before</span>
 
         <div class='padSmallx'>
         <?php echo $this->Form->create('User'); ?>

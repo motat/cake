@@ -5,9 +5,19 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <?php
-
+$chart = new Chart('PieChart');
+$data = array(
+        array('penis' => 'onions', 'slices' => 2),
+        array('penis' => 'olives', 'slices' => 1),
+        array('penis' => 'cheese', 'slices' => 4)
+);
+$chart->load($data, 'array');
+$options = array('title' => 'pizza', 'is3D' => true, 'width' => 500, 'height' => 400);
+echo $chart->draw('my_div', $options); 
+echo $output;
 ?> 
 
+<div id='my_div' style='width: 700px; height: 500px;'></div>
 
  <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
@@ -16,7 +26,11 @@
       function drawChart() {
         var data1 = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          [<?php echo $grouped_set; ?>]
+            <?php
+            foreach($output as $compound => $sum){
+              echo "['".$compound."', ".$sum."], ";
+            }
+            ?>
         ]);
 
         var options1 = {
@@ -32,5 +46,7 @@
       }
 </script>
 <span class='small'>
-<?php echo $grouped_set; ?></div>
-        <div id='chart_div' style='width: 700px; height: 500px;'></div>
+
+<?php print_r($chart_data); ?></div>
+
+<div id='chart_div' style='width: 700px; height: 500px;'></div>

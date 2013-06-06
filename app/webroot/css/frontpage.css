@@ -1,0 +1,85 @@
+/*###################################################################
+#  CSS NOTES
+#		
+#
+#
+####################################################################*/
+/* -------------------------------------------------------------- 
+   Reset
+-------------------------------------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, h7, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, span,
+dl, dt, dd, high, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section { display: block; }
+body { line-height: 1; }
+ol,ul {	list-style: none; }
+blockquote, q {	quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+a:link, a:visited, a:hover, a:active { text-decoration:none; color:inherit; font-weight:;}
+body { background-color:black; }
+html,body { height:100% }
+
+/*#########################
+# COLORS:
+# Blue: #4f4fff
+# Green: #4fff89
+# Red: #ff4f4f
+#########################*/
+
+/*##############
+  Class
+##############*/
+.clear { clear:both; }
+.container{ margin:0 auto; width:50%; height:100%; padding:100px; }
+.firstblock { background-color:#4BA66A; height:100%; width:100%; margin:0 auto;}
+.secondblock { background-color:#C1DBC1; width:100%; margin:0 auto; }
+.padding { padding:30px; }
+.right { float:right; text-align:center; }
+.left { float:left; }
+.block { }
+.information { width:35%; }
+
+.seconds { background-image:url('images/5.png'); width:150px; height:170px; margin:0 auto; }
+
+@font-face {
+	font-family: 'CurThick';
+	src: url('fonts/Comfortaa-Bold.ttf'); 
+	}
+
+@font-face {
+	font-family: 'CurLight';
+	src: url('fonts/Comfortaa-Light.ttf'); 
+	}
+
+h1, h2, h3, h4 { font-family:CurThick; color:white; }
+
+h1 { font-size:1.6em;  }
+h2 { font-size:2.1em; letter-spacing: 2px; font-weight:bold; font-family:CurLight;}
+h3 { font-size:1.8em; font-weight:bold; color: #5AAB5A; }
+h4 { font-size:1.3em; color:black; line-height:1.3em; font-family:CurLight;}
+
+input { line-height:1.5em; height:30px; border:1px; border-style:solid; color:white; font-size:1.5em; background-color:#4BA66A; margin-top:10px;  border-color:#4BA66A; width:200px; padding:5px; }

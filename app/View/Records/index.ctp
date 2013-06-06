@@ -1,5 +1,41 @@
-    <div class='block'></div>    
-    <div class='colMedium borderThick'>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="scripts/js.js"></script>
+<script type='text/javascript' src='http://www.google.com/jsapi'></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+        var data1 = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+            <?php
+            foreach($output as $compound => $sum){
+              echo "['".$compound."', ".$sum."], ";
+            }
+            ?>
+        ]);
+
+        var options1 = {
+          title: 'Your Favorites',
+          backgroundColor: { fill:'transparent' },
+          'titleTextStyle': { 'color': 'black' },
+          'legend': { 'textStyle': { 'color': 'black' } }
+        };
+
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data1, options1);
+      }
+</script>
+
+    <div class='block'></div>
+    <center>
+        <div id='chart_div' style='height:700px; width:700px;'></div>
+    </div>
+    <div class='colMedium'>
         <div class='right'>
           <div class='padSmallx'>
             <span class='fButton'><?php echo $this->Html->link('add entry', array('action' => 'add')); ?></span>
@@ -18,6 +54,11 @@
                     <span class='small'><?php echo $record['Record']['dose_date']; ?>
                     </span>
                     </br>
+                    <div class='right'>
+                        <span class='fButton'><?php echo $this->Html->link('Edit', array('action' => 'edit', $record['Record']['id'])); ?></span>
+                        </br>
+                        <span class='fButton'><?php echo $this->Html->link('Delete', array('action' => 'delete', $record['Record']['id'])); ?></span>
+                    </div>
                 </div>
             </div>
             <div id='logInfo'>

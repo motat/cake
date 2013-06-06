@@ -18,7 +18,7 @@
         <h4>Edit</h4>
         <div class='padSmallx'>
         <?php echo $this->Session->flash('auth'); ?>
-        <?php echo $this->Form->create('Record'); ?>
+        <?php echo $this->Form->create('Record', array('action' => 'edit')); ?>
         <fieldset>
             <?php echo $this->Form->input('dose_date', array('placeholder' => '2013-1-07', 'label' => false,'type' => 'text', 'id' =>'datepicker'));
             echo $this->Form->input('compound', array('placeholder' => 'Substance', 'label' => false, 'id' => 'autocomplete')); ?>

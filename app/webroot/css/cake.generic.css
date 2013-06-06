@@ -40,7 +40,7 @@ blockquote, q {	quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
 table { border-collapse: collapse; border-spacing: 0; }
 a:link, a:visited, a:hover, a:active { text-decoration:none; color:inherit; font-weight:;}
-body { background-color:#e8fff0; }
+body { background-color:#C1DBC1; }
 html,body { height:100% }
 
 /*#########################
@@ -73,22 +73,31 @@ html,body { height:100% }
 .blockSmall { height:50px; margin:0 auto; }
 .borderThick { border:5px; border-style:solid; }
 .borderTop { border:1px; border-top-style:solid; }
+.box { margin-left:20px; max-width:400px; margin-top:20px; border:3px; border-left-style:solid; }
 .clear { clear:both; }
+.center {  text-align:center; }
 .colSmallx { width:460px; margin:0 auto; }
 .colFull { width:100%; overflow:hidden; }
 .colLarge { width:75%; margin:0 auto; }
 .colMedium { width:50%; margin:0 auto; }
+.colSmallMed { width:35%; }
 .colSmall { width:20%; }
-.box { margin-left:20px; max-width:400px; margin-top:20px; border:3px; border-left-style:solid; }
+.container{ margin:0 auto; width:50%; height:100%; padding:100px; }
 .dash { border:1px; width:150px; border-bottom-style:dashed; border-color:white; }
+.firstblock { background-color:#4BA66A; height:100%; width:100%; margin:0 auto;}
 .head { width:100%; padding:5px; background-color:#C9C9C9; }
 .left { float:left; overflow:hidden; }
-.nav { height:50px; background-color:black; width:100%; }
+.nav { height:50px; background-color:#4BA66A; width:100%; }
 .none { border:0; }
 .right { float:right; overflow:hidden; }
 .row { float:left; margin-right:50px; }
 .padSmall { padding:5px; }
 .padSmallx { padding:10px; }
+.padding { padding:30px; }
+.secondblock { background-color:#C1DBC1; width:100%; margin:0 auto; }
+.seconds { background-image:url('images/5.png'); width:150px; height:170px; margin:0 auto; }
+
+
 /*##############
   ID
 ##############*/
@@ -98,39 +107,52 @@ html,body { height:100% }
 #ballRed { background:url('images/red.png'); width:112px; height:112px; background-repeat:no-repeat;float:left;}
 #logDate { float:left; width:30%;  }
 #logInfo { float:right; width:70%; background-color:#c3e5cf; }
+
 /*##############
   Font
 ##############*/
-h1, h2, h3, h4, h5, h6 { color:black; font-family:helvetica; }
+
+@font-face {
+  font-family: 'CurThick';
+  src: url('fonts/Comfortaa-Bold.ttf'); 
+  }
+
+@font-face {
+  font-family: 'CurLight';
+  src: url('fonts/Comfortaa-Light.ttf'); 
+  }
+
+h1, h2, h3, h4, h5, h6 { color:black; font-family:CurThick;  }
 
 h1 { font-size: 10em; }
-h2 { font-size: 5em; }
+h2 { font-size: 3em; color:white; }
 h3 { font-size: 3em; }
-h4 { font-size: 2em; }
-h5 { font-size: 1.4em; }
+h4 { font-size: 2em; line-height:2.1em;}
+h5 { font-size: 1.4em;}
 h6 { font-size: 1em; }
 
-.smallx, .small, .medium, .large { color:black; font-family:helvetica; }
+.smallx, .small, .medium, .large { color:black; font-family:CurLight; }
 .blue { color:#4f4fff; }
 .grey { color: grey; }
 .green { color: #4fff89; }
 .red { color: #ff4f4f; }
 .small { font-size:1.2em; }
-.smallx { font-size:1.5em; }
+.smallx { font-size:1.5em; line-height:1.3em; }
 .medium { font-size:2em; }
 .large { font-size:3em; }
 .white { color:white;}
 .button { color:white; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
 
-.fButton { color:white; font-size:30px; padding: 5px; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
+.fButton { color:white; line-height:2em; font-size:30px; padding: 5px; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4BA66A;}
 /****************
  - Form
 ****************/
-input, button, textarea { background-color:#e8fff0;border:0px; color:black; font-size:30px; padding: 5px;}
+input, button, textarea { background-color:#4BA66A;border:0px; color:black; font-size:30px; padding: 5px; margin-top:20px; }
 select { width:100%; color:black; font-size:30px; line-height:1.5em; padding:5px; }
-input { width:100%; line-height:1.5em; border: 1px; border-bottom-style:solid; }
+input { width:100%; line-height:1.5em; border: 1px; border-color:#4BA66A; color:white;  border-bottom-style:solid; }
 button { color:white; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
 textarea { width:100%; border:1px; border-style:solid; }
+
 
 ::-webkit-input-placeholder { /* WebKit browsers */
     color:    #474747;

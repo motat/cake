@@ -1,5 +1,8 @@
 <?php
+App::import('Vendor','Chart');
 class RecordsController extends AppController {
+    public $helpers = array('Html', 'Form', 'Session');
+    public $components = array('Session', 'HighCharts.HighCharts');
 
     var $name = 'Records';
     var $layout = 'defaultHome';
@@ -8,16 +11,21 @@ class RecordsController extends AppController {
         $this->Record->findAllByUserId($this->Auth->user('id'));
         $this->set('records', $this->Record->findAllByUserId($this->Auth->user('id')));
         $this->set('title_for_layout', 'Drugrecord');
+
+        //Graph
+        $this->Record->virtualFields['sum'] ='COUNT(*)';
+        $records=$this->Record->find('list', 
+            array('fields' => array('compound', 'sum'),
+                'group'  => 'compound',
+                'conditions' => array('user_id' => $this->Auth->user('id'))));
+        $this->set('output',$records);
     }
 
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow('add');
-    }
 
     public function add() {
         if ($this->request->is('post')) {
             $this->Record->create();
+            $this->request->data['Record']['user_id'] = $this->Auth->user('id');
             if ($this->Record->save($this->request->data)) {
                 $this->Session->setFlash('Your post has been saved.');
                 $this->redirect(array('action' => 'index'));
@@ -59,25 +67,5 @@ class RecordsController extends AppController {
     	$this->redirect(array('action' =>'index', $id));
     }
 
-    function graph(){
-        $this->Record->virtualFields['sum'] ='COUNT(*)';
-        $grouped=$this->Record->find('list', 
-            array('fields' => array('compound', 'sum'),
-                'group'  => 'compound'));
-        debug($grouped);
-        $this->set('grouped_set', $grouped);
-    }
 
-	public function isAuthorized($user) {
-
-	    // The owner of a post can edit and delete it
-	    if (in_array($this->action, array('edit', 'delete'))) {
-	        $postId = $this->request->params['pass'][0];
-	        if ($this->Post->isOwnedBy($postId, $user['id'])) {
-	            return true;
-	        }
-	    }
-
-	    return parent::isAuthorized($user);
-	}
 }

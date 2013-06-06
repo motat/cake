@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	var $layout = 'drugrecord';
+	var $layout = 'defaultHome';
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -11,7 +11,7 @@ class UsersController extends AppController {
 	public function login() {
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
-	            $this->redirect($this->Auth->redirect());
+	            $this->redirect($this->Auth->redirect(array('controller' => 'records', 'actions' => 'index')));
 	        } else {
 	            $this->Session->setFlash(__('Invalid username or password, try again'));
 	        }
@@ -41,7 +41,7 @@ class UsersController extends AppController {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved'));
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'login'));
             } else {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
