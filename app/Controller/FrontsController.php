@@ -1,21 +1,22 @@
 <?php
 class FrontsController extends AppController {
-
+    public $helpers = array('Html', 'Form');
 	var $name = 'Fronts';
 	var $layout = 'frontpage';
 
 	public function index(){
-		$this->loadModel('Record');
-		$this->set('records', $this->Record->find('all'));
-		$this->set('title_for_layout', 'Drugrecord');
-		//Get Data for PieChart
-        $this->Record->virtualFields['sum'] ='COUNT(*)';
-        $records=$this->Record->find('list', 
-            array('fields' => array('drug_id', 'sum'),
-                'group'  => 'drug_id'));
-        $this->set('output',$records);
+        $this->loadModel('Record');
+        $this->loadModel('RecordDrug');
+        
+        /*----
+        * global pieChart
+        ----*/
+        $pieChart = $this->Record->pieChart();
+        $this->set('output',$pieChart); 
 	}
+
     function beforeFilter(){
         $this->Auth->allow('index');
+        $this->set('authUser', $this->Auth->user());
     }
 }

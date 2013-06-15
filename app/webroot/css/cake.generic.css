@@ -54,6 +54,15 @@ html,body { height:100% }
   Class
 ##############*/
 
+.contArrow { position:absolute; height:30px; width:70px; bottom:0; right:0;}
+#arrow {  width: 0; 
+  height: 0; 
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  
+  border-top:15px solid black; }
+
+
 .message {
   background-color:#ff4f4f;
   clear: both;
@@ -87,6 +96,8 @@ html,body { height:100% }
 .firstblock { background-color:#4BA66A; height:100%; width:100%; margin:0 auto;}
 .head { width:100%; padding:5px; background-color:#C9C9C9; }
 .left { float:left; overflow:hidden; }
+.linkBox { margin-top:5px; padding:5px 15px 5px 15px; text-align:center; border:1px; border-color:white; border-style:solid;}
+.linkBox:hover{ background-color:#C1DBC1;}
 .nav { height:50px; background-color:#4BA66A; width:100%; }
 .none { border:0; }
 .right { float:right; overflow:hidden; }
@@ -106,7 +117,7 @@ html,body { height:100% }
 #ballGreen { background:url('images/green.png'); width:112px; height:112px; background-repeat:no-repeat; float:left;}
 #ballRed { background:url('images/red.png'); width:112px; height:112px; background-repeat:no-repeat;float:left;}
 #logDate { float:left; width:30%;  }
-#logInfo { float:right; width:70%; background-color:#c3e5cf; }
+#logInfo { background-color:#c3e5cf; }
 
 /*##############
   Font
@@ -128,15 +139,16 @@ h1 { font-size: 10em; }
 h2 { font-size: 3em; color:white; }
 h3 { font-size: 3em; }
 h4 { font-size: 2em; line-height:2.1em;}
-h5 { font-size: 1.4em;}
+h5 { font-size: 1.4em; line-height:1.4em;}
 h6 { font-size: 1em; }
 
-.smallx, .small, .medium, .large { color:black; font-family:CurLight; }
+.smallx, .small, .smallSuper, .medium, .large { color:black; font-family:CurLight; }
 .blue { color:#4f4fff; }
 .grey { color: grey; }
 .green { color: #4fff89; }
 .red { color: #ff4f4f; }
 .small { font-size:1.2em; }
+.smallSuper { font-size:1em; }
 .smallx { font-size:1.5em; line-height:1.3em; }
 .medium { font-size:2em; }
 .large { font-size:3em; }
@@ -147,11 +159,11 @@ h6 { font-size: 1em; }
 /****************
  - Form
 ****************/
-input, button, textarea { background-color:#4BA66A;border:0px; color:black; font-size:30px; padding: 5px; margin-top:20px; }
-select { width:100%; color:black; font-size:30px; line-height:1.5em; padding:5px; }
+input, button, textarea { background-color:#4BA66A;border:0px; color:black; font-size:30px; padding: 5px; }
+select { border:0 ;width:100%; background-color:#4BA66A; color:black; font-size:30px; line-height:1.5em; padding:5px; }
 input { width:100%; line-height:1.5em; border: 1px; border-color:#4BA66A; color:white;  border-bottom-style:solid; }
 button { color:white; width:142px; height:44px; margin-top:5px; font-size: 16px; font-family: sans-serif; font-weight:bold; background-color: #4f4fff;}
-textarea { width:100%; border:1px; border-style:solid; }
+textarea { width:100%; border:1px; border-style:solid; font-size:20px;}
 
 
 ::-webkit-input-placeholder { /* WebKit browsers */

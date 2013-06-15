@@ -22,95 +22,105 @@ $cakeDescription = __d('cake_dev', 'ug.');
 <!DOCTYPE html>
 <html>
 <head>
-  <?php echo $this->Html->charset(); ?>
-  <title>
-    <?php echo $cakeDescription ?>:
-    <?php echo $title_for_layout; ?>
-  </title>
-  <?php
-    echo $this->Html->meta('icon');
-
-    echo $this->Html->css('cake.generic');
-
-    echo $this->fetch('meta');
-    echo $this->fetch('css');
-    echo $this->fetch('script');
-  ?>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="scripts/js.js"></script>
-<script type='text/javascript' src='http://www.google.com/jsapi'></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
- <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      
-      function drawChart() {
-        var data1 = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
+    <?php echo $this->Html->charset(); ?>
+    <title>
+        <?php echo $cakeDescription ?>:
+        <?php echo $title_for_layout; ?>
+    </title>
+    <?php
+        echo $this->Html->meta('icon');
+        echo $this->Html->css('cake.generic');
+        echo $this->Html->script('jquery-1.9.1.min.js');
+        echo $this->Html->script('knockout-2.2.1.js');
+        echo $this->Html->script('globalize.js');
+        echo $this->Html->script('dx.chartjs.js');
+        echo $this->fetch('meta');
+        echo $this->fetch('css');
+        echo $this->fetch('script');
+    ?>
+    <script type="text/javascript">
+        var pieChartDataSource = [
             <?php
             foreach($output as $compound => $sum){
-              echo "['".$compound."', ".$sum."], ";
-            }
-            ?>
-        ]);
-
-        var options1 = {
-          title: 'Top Substances',
-          backgroundColor: { fill:'transparent' },
-          'titleTextStyle': { 'color': 'black' },
-          'legend': { 'textStyle': { 'color': 'white' } }
-        };
-
-        var data2 = google.visualization.arrayToDataTable([
-            ['Day' , 'Cannabis', 'Tobacco'],
-            ['Mon', 5, 3],
-            ['Tue', 2,5],
-            ['Wed', 3,6],
-            ['Thur' ,1, 1],
-            ['Fri', 10, 8],
-            ['Sat', 3, 0],
-            ['Sun', 0,3]
-            ]);
-        
-        var options2 = {
-          title: 'Cannabis vs Tobacco',
-          backgroundColor: { fill:'transparent' },
-          'titleTextStyle': { 'color': '4BA66A', },
-          legend: {position: 'none'},
-     vAxis: {gridlines: {color: 'none', count: 5}}
-        };
-
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data1, options1);
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart_line'));
-        chart.draw(data2, options2);
-      }
-</script>
+              echo "{category: '".$compound."', value: ".$sum."}, ";
+            }      
+            ?>      
+        ];
+   
+        $(function () {             
+            $("#pieChartContainer").dxPieChart({
+                palette: 'Harmony Light',
+                series: {
+                    argumentField: 'category',
+                    valueField: 'value',
+                    label: {
+                        visible: true,
+                        connector: {
+                            visible: true
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    percentPrecision:2,
+                    customizeText: function (value) {
+                        return value.percentText;
+                    }
+                },
+                title: {
+                    text: 'Users overall drug use'
+                },
+                legend: {
+                    horizontalAlignment: 'center',
+                    verticalAlignment: 'bottom'
+                },
+                dataSource: pieChartDataSource,
+               
+            });
+        });
+    </script>
 </head>
 <body>
+
 <div class='firstblock'>
     <div class='padding'>
         <div class='left'>
             <h2>DRUGRECORD</h2>
         </div>
         <div class='right'>
-            <h4>
-              <?php
-              echo $this->Html->link('login', array('controller' => 'users', 'action' => 'login'));
-              echo '&nbsp&nbsp&nbsp';
-              echo $this->Html->link('register', array('controller' => 'users', 'action' => 'add'));
-              echo '&nbsp&nbsp&nbsp';
-              echo $this->Html->link('records', array('controller' => 'records', 'action' => 'index'));
+            <h5>
+                <?php
+                    if (!$authUser) {
+                        echo "
+                            <div class='linkBox'>
+                                "; echo $this->Html->link('login', array('controller' => 'users', 'action' => 'login'));
+                        echo "        
+                            </div>
+                            <div class='linkBox'>";
+                                echo $this->Html->link('register', array('controller' => 'users', 'action' => 'add'));
+                        echo "</div>";
+                    } else {
+                        echo "
+                            <div class='linkBox'>";
+                                echo $this->Html->link('records', array('controller' => 'records', 'action' => 'index'));
+                        echo "
+                            </div>
+                            ";
+                    }
               ?>
-            </h4>
+                <div class='linkBox'>
+<?php echo $this->Html->link('public', array('controller' => 'public', 'action' => 'index')); ?>
+                </div>
+            </h5>
         </div>
         <div class='clear'></div>
     </div>
-        <div id='chart_div' style='margin:0 auto;height:70%; min-height:70%; width:900px;' ></div>
+    <div id="pieChartContainer" style="max-width:600px;height: 600px; margin:0 auto;"></div>
+    <div class='contArrow'>
+      <div id='arrow'>
+      </div>
+    </div>
+    </div>
 </div>
 <div class='secondblock'>
     <div class='container'>

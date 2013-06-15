@@ -4,6 +4,8 @@ class Front extends AppModel {
 
 
     public function index(){
-        $this->set('records', $this->Post->find('all'));
+		$this->loadModel('Record');
+		$this->set('records', $this->Record->find('all'));
+		$this->set('title_for_layout', 'Drugrecord');
     }
 }

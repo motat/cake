@@ -30,61 +30,76 @@
         chart.draw(data1, options1);
       }
 </script>
-
-    <div class='block'></div>
-    <center>
-        <div id='chart_div' style='height:700px; width:700px;'></div>
-    </div>
-    <div class='colMedium'>
-        <div class='right'>
-          <div class='padSmallx'>
-            <span class='fButton'><?php echo $this->Html->link('add entry', array('action' => 'add')); ?></span>
-          </div>
+<div class='secondblock' style='border:1px; border-color:#5AAB5A; border-bottom-style:solid;'>
+        <div class='left padding'>
+            <div id='chart_div' style='height:400px; width:400px;'></div>
         </div>
-      <div class='padSmallx'>
-        <h3>Log</h3>
-        </br>
-        </br>
-        </br>
-
-        <?php foreach ($records as $record): ?>
-        <div class='colFull borderTop'>
-            <div id='logDate'>
-                <div class='padSmallx'>
-                    <span class='small'><?php echo $record['Record']['dose_date']; ?>
-                    </span>
-                    </br>
-                    <div class='right'>
-                        <span class='fButton'><?php echo $this->Html->link('Edit', array('action' => 'edit', $record['Record']['id'])); ?></span>
-                        </br>
-                        <span class='fButton'><?php echo $this->Html->link('Delete', array('action' => 'delete', $record['Record']['id'])); ?></span>
-                    </div>
-                </div>
-            </div>
-            <div id='logInfo'>
-                <div class='padSmallx'>
-                    <span class='medium'><?php echo $record['Record']['compound']; ?>
-                    </span>
-                    </br>
-                    <span class='smallx red'><?php echo $record['Record']['dose']; ?> <?php echo $record['Record']['unit']; ?>
-                    </span>
-                    </br>
-                    </br>
-                    <h5><?php echo $record['Record']['title']; ?></h5>
-                    </br>
-                    <span class='smallx'><?php echo $record['Record']['report']; ?>
-                    </span>
-                </div>
-            </div>
-            <div class='clear'></div>
+        <div class ='left padding'>
+            <div class='blockSmall'></div>
+            <center>
+                <h5>Total Dose per Substance</h5>
+                <span class='smallSuper'>units coming soon</span>
+            </br>
+                </br>
+                <?php foreach ($output as $compound=> $sum) {
+                    echo "<span class='small'>".$compound." :</span> <span class='smallx'>".$sum."</span></br>";
+                }
+                ?>
+            </center>
+            </br>
         </div>
-        <div class='blockxSmall'></div>
-        <?php endforeach; ?>
-        <?php unset($post); ?>
-
+        <div class='clear'></div>
+</div>
+<div class='secondblock padding' id='logInfo'>
+        <span class='fButton'><?php echo $this->Html->link('add entry', array('action' => 'add')); ?></span>
+        <div class='container'>
+            <span class='medium'>Sort: </span>
+            <span class='small'>
+            <?php 
+            echo $this->Paginator->sort('Drug.drug', 'drug name'); 
+            echo " | ";
+            echo $this->Paginator->sort('Record.dose_date', 'date');
+            echo " | ";
+            echo $this->Paginator->sort('Record.dose', 'dose');
+            ?>
+            </span>
         </br>
-        </br>
-      </div>
-    </div>
-  </BODY>
+    </br>
+                <?php foreach ($log as $log): ?>
+                        <div class='borderTop padding'>
+                                <div class='left colSmallMed'>
+                                        <span class='medium'><?php echo $log['Drug']['drug']; ?></span>
+                                        </br>
+                                        </br>
+                                        <span class='small'><?php echo $log['Record']['dose_date']; ?></span>
+                                        </br>
+                                        </br>
+                                        <span class='fButton'><?php echo $this->Html->link('Edit', array('action' => 'edit', $log['Record']['id'])); ?></span>&nbsp; &nbsp;
+                                         <span class='fButton'><?php echo $this->Html->link('Delete', array('action' => 'delete', $log['Record']['id'])); ?></span>
+                                </div>
+                                <div class='right colSmallMed'>
+                                        </br>
+                                        <span class='small'>Dose: </span><span class='smallx red'><?php echo $log['Record']['dose']; ?> <?php echo $log['Record']['unit']; ?>
+                                        </span>
+                                        </br>
+                                        </br>
+                                        <h5><?php echo $log['Record']['title']; ?></h5>
+                                        </br>
+                                        <span class='smallx'><?php echo $log['Record']['report']; ?></span>
+                                </div>
+                                <div class='clear'></div>
+                        </div>
+                <?php endforeach; ?>
+                <?php unset($post); ?>
+                </br>
+                <?php
+                /***
+                * Pagination
+                */
+                echo $this->Paginator->numbers();
+                ?>
+                </br>
+        </div>
+</div>
+        </BODY>
 </HTML>

@@ -13,11 +13,32 @@ class UsersController extends AppController {
 	        if ($this->Auth->login()) {
 	            $this->redirect($this->Auth->redirect(array('controller' => 'records', 'actions' => 'index')));
 	        } else {
-	            $this->Session->setFlash(__('Invalid username or password, try again'));
+            //if user can't login, repassword his cock
+
+            //Returning; trying to figure out how to make it so 
+            //when a user trys to login and fails because of incorrect
+            //encryption, it then trys to update his User table with
+            //the correctly encrypted password. Cocks LOL
+                if ($this->request->is('post')) {
+                    $id=$this->User->find('list', 
+                        array('fields' => array( 'id'),
+                            'conditions' => array('username' => $this->data['User']['username'])
+                            ));
+                    $this->User->id = $id;
+                    if ($this->User->save($this->request->data)) {
+                        $this->Session->setFlash(__('Your password has been updated.'));
+                        $this->redirect(array('action' => 'login'));
+                    } else {
+                        $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                    }
+                }
 	        }
 	    }
 	}
 
+    public function relog() {
+
+    }
 
     public function logout () {
     	$this->redirect($this->Auth->logout());
@@ -80,5 +101,12 @@ class UsersController extends AppController {
         }
         $this->Session->setFlash(__('User was not deleted'));
         $this->redirect(array('action' => 'index'));
+    }
+
+    public function isAuthorized ($user) {
+        if(in_array($this->action, array('logout','index'))) {
+            return true;
+        }
+        return false;
     }
 }

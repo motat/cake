@@ -14,5 +14,5 @@
         </div>
         </br>
         </br>
-        <span class='smallx'><a href='problems.php?p=login'>Problems logging in?</a></span>
+        <span class='smallx'><?php echo $this->Html->link('Problems logging in?', array('controller' => 'bugs', 'action' => 'index')); ?></span>
     </div>

@@ -55,13 +55,17 @@ html,body { height:100% }
 ##############*/
 .clear { clear:both; }
 .container{ margin:0 auto; width:50%; height:100%; padding:100px; }
-.firstblock { background-color:#4BA66A; height:100%; width:100%; margin:0 auto;}
+.firstblock { position:relative; background-color:#4BA66A; height:100%; width:100%; margin:0 auto;}
 .secondblock { background-color:#C1DBC1; width:100%; margin:0 auto; }
 .padding { padding:30px; }
 .right { float:right; text-align:center; }
 .left { float:left; }
 .block { }
 .information { width:35%; }
+
+.contArrow { position:absolute; background-color:black; height:200px; width:200px; bottom:0; right:0;}
+#arrow { position:relative; background-color:white; height:100px; width:100px; padding:40px; }
+
 
 .seconds { background-image:url('images/5.png'); width:150px; height:170px; margin:0 auto; }
 

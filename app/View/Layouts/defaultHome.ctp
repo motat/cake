@@ -44,7 +44,7 @@ $cakeDescription = __d('cake_dev', 'DRUGRECORD');
         <h5>&nbsp; <span class='white'><?php echo $this->Html->link($cakeDescription, array('controller' =>'fronts', 'action' => 'index')); ?></span></h5>
       </div>
       <div class='right'>
-        <h5><span class='white'><?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?></span></h5>
+        <h5><span class='white'><?php echo $this->Html->link('submit bug', array('controller'=>'bugs', 'action'=>'index')); ?> | <?php  echo $this->Html->link('logout', array('controller' => 'users', 'action' => 'logout')); ?></span></h5>
       </div>
       <div class='clear'></div>
     </div>

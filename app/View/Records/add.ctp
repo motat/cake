@@ -5,7 +5,6 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-
     <script>
       $(function() {
         $( "#datepicker" ).datepicker({ dateFormat: 'yy-m-dd' });
@@ -19,17 +18,44 @@
         <?php echo $this->Session->flash('auth'); ?>
         <?php echo $this->Form->create('Record'); ?>
         <fieldset>
-            <?php echo $this->Form->input('dose_date', array('placeholder' => '2013-1-07', 'label' => false,'type' => 'text','id' =>'datepicker'));
-            echo $this->Form->input('compound', array('placeholder' => 'Substance', 'label' => false, 'id' => 'autocomplete')); ?>
-            <div class='colLarge left'>
-            <?php
-            echo $this->Form->input('dose', array('placeholder' => 'Dose', 'label' => false)); ?>
+            <div class='colFull'>
+                <?php echo $this->Form->input('Record.dose_date', array('placeholder' => 'Date of Dose', 'label' => false,'type' => 'text','id' =>'datepicker'));
+                ?>
             </div>
-            <div class='colSmall right'>
-            <?php
-            echo $this->Form->input('unit', array('placeholder'=>'Unit', 'label' => false,'id' => 'autocompleteunit')); ?>
+            <div class='colFull'>
+                <?php
+                echo $this->Form->input('RecordDrug.drug_id', array('placeholder' => 'Substance', 'options'=>$drugList,'label' => false,'type' => 'select')); ?>
             </div>
-            <div class='clear'></div>
+            </br>
+            </br>
+            <center><h5>Optional Fields</h5></center>
+            <div class='colFull'>
+                <div class='colLarge left'>
+                    <?php
+                    echo $this->Form->input('Record.dose', array('placeholder' => 'Dose', 'label' => false)); ?>
+                </div>
+                <div class='colSmall right'>
+                    <?php
+                    echo $this->Form->input('Record.unit', array('placeholder'=>'Unit', 'label' => false,'id' => 'autocompleteunit')); ?>
+                </div>
+                <div class='clear'></div>
+            </div>
+            <div class='colFull'>
+                <?php 
+                    echo $this->Form->input('Record.title', array('placeholder' => 'Title', 'label' => false,'type' => 'text'));
+                ?>
+            </div>
+            <div class='colFull'>
+                <?php
+                    echo $this->Form->input('Record.report', array('placeholder' => 'Your Report','label' => false,'type' => 'textarea')); 
+                ?>
+            </div>
+            </br>
+            </br>
+            </br>
+            <span class='small'>
+                <?php echo $this->Html->link('Drug missing?', array('controller'=>'drugs', 'action'=>'add')); ?>
+            </span>
             </br>
             </br>
             <?php
@@ -42,49 +68,10 @@
     </div>
 
 <script>
-    $( "#autocomplete" ).autocomplete({
-        source: [ 
-            'LSD', 
-            'Mushrooms', 
-            'Mescaline', 
-            'DMT', 
-            'Spice', 
-            'DOx Family', 
-            'DXM HBr', 
-            'DXM Polysterix', 
-            'MXE', 
-            'Ketamine', 
-            'Cocaine', 
-            'Methamphetamine', 
-            'Amphetamine',
-            'Opioid',
-            'Heroin',
-            'Benzo',
-            'Alcohol',
-            'Gabapentin',
-            'Zolpidem',
-            'MDMA',
-            'Cannabis',
-            'BHO',
-            '2c series',
-            'NBOMe series',
-            'Tobacco',
-            'Cigarette',
-            '5-meo-DMT',
-            '4-ho-MET',
-            '4-ho-MIPT',
-            '4-aco-DMT',
-            'Methylone',
-            '6-APB',
-            'Valium',
-            'Diazepam',
-            'Xanax',
-            'Alprazolam'
-        ]
-    });
+
     $( "#autocompleteunit" ).autocomplete({
         source: [ 
-            'mg',
+            {'label':'mg', 'value':'mg', 'id':'1'},
             'ml',
             'g',
             'ug',

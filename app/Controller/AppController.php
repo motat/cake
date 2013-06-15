@@ -38,8 +38,15 @@ class AppController extends Controller {
     public $components = array(
         'Session',
         'Auth' => array(
-        	'logoutRedirect' => array('controller'=>'fronts', 'action'=>'index'))
+        	'authenticate' =>'Blowfish',
+        	'logoutRedirect' => array('controller'=>'fronts', 'action'=>'index'),
+            'authorize' => array('Controller')
+        )
     );
+
+    public function isAuthorized($user) {
+        return false;
+    }
 
     function beforeFilter(){
         $this->set('loggedin', $this->Auth->user());}
