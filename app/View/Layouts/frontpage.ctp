@@ -31,53 +31,107 @@ $cakeDescription = __d('cake_dev', 'ug.');
         echo $this->Html->meta('icon');
         echo $this->Html->css('cake.generic');
         echo $this->Html->script('jquery-1.9.1.min.js');
-        echo $this->Html->script('knockout-2.2.1.js');
-        echo $this->Html->script('globalize.js');
-        echo $this->Html->script('dx.chartjs.js');
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
     ?>
-    <script type="text/javascript">
-        var pieChartDataSource = [
-            <?php
-            foreach($output as $compound => $sum){
-              echo "{category: '".$compound."', value: ".$sum."}, ";
-            }      
-            ?>      
-        ];
-   
-        $(function () {             
-            $("#pieChartContainer").dxPieChart({
-                palette: 'Harmony Light',
-                series: {
-                    argumentField: 'category',
-                    valueField: 'value',
-                    label: {
-                        visible: true,
-                        connector: {
-                            visible: true
-                        }
-                    }
-                },
-                tooltip: {
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('#pieChart').highcharts({
+        chart: {
+            backgroundColor: '#4BA66A',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '',
+            style: {
+                fontWeight: 'bold',
+                fontSize: '25px',
+                fontFamily: 'CurThick',
+                color: '#186C35'
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            percentageDecimals: 1
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
                     enabled: true,
-                    percentPrecision:2,
-                    customizeText: function (value) {
-                        return value.percentText;
+                    color: '#C1DBC1',
+                    style: {
+                        fontSize: '16px'
+                    },
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        if(this.y > 1)
+                               return '<b>'+ this.point.name +'</b>: '+ this.y; 
+                          else
+                               return null //empty datalabel
                     }
-                },
-                title: {
-                    text: 'Users overall drug use'
-                },
-                legend: {
-                    horizontalAlignment: 'center',
-                    verticalAlignment: 'bottom'
-                },
-                dataSource: pieChartDataSource,
-               
-            });
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            type: 'pie',
+            name: 'Drug use',
+            data: [
+                <?php
+                foreach($output as $compound => $sum){
+                    echo "['".$compound."', ".$sum."], ";
+                }      
+                ?>  
+            ]
+        }]
+    });
+});
+$(function () {
+        $('#lineChart').highcharts({
+            chart: {
+                backgroundColor: '#C1DBC1',
+                type: 'line',
+            },
+            title: {
+                text: 'Tobacco vs Cannabis',
+            },
+            xAxis: {
+                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            legend: {
+                layout: 'vertical',
+                verticalAlign: 'top',
+                y: 20,
+                borderWidth: 0
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Tobacco',
+                data: [1,3,2,2,4,1,2]
+            }, {
+                name: 'Cannabis',
+                data: [5,3,2,2,1,3,4]
+            }]
         });
+    });
     </script>
 </head>
 <body>
@@ -86,6 +140,7 @@ $cakeDescription = __d('cake_dev', 'ug.');
     <div class='padding'>
         <div class='left'>
             <h2>DRUGRECORD</h2>
+            <span class='smallx'>beta</span>
         </div>
         <div class='right'>
             <h5>
@@ -111,18 +166,23 @@ $cakeDescription = __d('cake_dev', 'ug.');
                 <div class='linkBox'>
 <?php echo $this->Html->link('public', array('controller' => 'public', 'action' => 'index')); ?>
                 </div>
+                <div class='linkBox' style='background-color:#C1DBC1'>
+<?php echo $this->Html->link('blog', array('controller' => 'blogs', 'action' => 'index')); ?>
+                </div>
             </h5>
         </div>
         <div class='clear'></div>
     </div>
-    <div id="pieChartContainer" style="max-width:600px;height: 600px; margin:0 auto;"></div>
+    <div id="pieChart" style="max-width:700px;height: 700px; margin:0 auto;"></div>
     <div class='contArrow'>
-      <div id='arrow'>
-      </div>
+        <a href='#1'>    
+            <div class='arrow'>
+            </div>
+        </a>
     </div>
     </div>
 </div>
-<div class='secondblock'>
+<div id = '1' class='secondblock'>
     <div class='container'>
         <div class='left colSmallMed'>
             <h3>Anonymity</h3>
@@ -148,7 +208,7 @@ $cakeDescription = __d('cake_dev', 'ug.');
             <span class='smallx'>While logging your information you will be able to access graphs and charts that will show you interesting statistics on your drug use.</span>
         </div>
         <div class='right center colSmallMed'>
-            <div id='chart_line'></div>
+            <div id='lineChart' style='height:300px; width:100%;'></div>
         </div>
         <div class='clear'></div>
     </div>

@@ -12,7 +12,7 @@ class RecordsController extends AppController {
             'Record.dose_date',
             'Drug.drug',
             'Record.dose',
-            'Record.unit',
+            'Unit.unit',
             'Record.title',
             'Record.report'
         )
@@ -20,7 +20,8 @@ class RecordsController extends AppController {
 
     function index() {
         $this->loadModel('Record');
-        $this->loadModel('RecordDrug');
+        $this->loadModel('RecordDrugUnit');
+        $this->loadModel('Unit');
         
         /*----
         * Main Log
@@ -31,62 +32,104 @@ class RecordsController extends AppController {
             'conditions' => array(
                 'Record.user_id' => $this->Session->read('Auth.User.id')    
             ),
-            'limit' => 8,
-            'contain' => array('Drug', 'Record'),
+            'limit' => 5,
+            'contain' => array('Drug', 'Record', 'Unit'),
             'order' => array('Record.dose_date' => 'desc')
         );
-        $log = $this->paginate('RecordDrug');
+        $log = $this->paginate('RecordDrugUnit');
         $this->set(compact('log'));
-
         /*----
         * pieChart and doseTotals
         ----*/
-        $conditions = array('Record.user_id' => $this->Auth->user('id'));
-        $pieChart = $this->Record->pieChart($conditions);
-        $this->set('output',$pieChart); 
+        $limit='50';
+        $conditions = array('Record.user_id' => $this->Session->read('Auth.User.id'));
+        $pieChart = $this->Record->pieChart($limit,$conditions);
+        $this->set('output',$pieChart);
 
+        $this->RecordDrugUnit->virtualFields['sum'] ='ROUND(SUM(RecordDrugUnit.dose)/Unit.conversion,1)';
+        $units=$this->RecordDrugUnit->find('threaded',
+            array(
+                'conditions' => array('Record.user_id' => $this->Session->read('Auth.User.id')),
+                'fields' => array('sum','Drug.drug', 'Unit.unit','id'),
+                'order' => array('sum' => 'desc'),
+                'contain' => array( 'Drug', 'Record', 'Unit' ),
+                'group'  => 'Drug.Drug'
+                ));
+        //$units['RecordDrugUnit']['sum'] = $units['RecordDrugUnit']['sum'] / $units['Unit']['conversion']
+        debug($units);
+        $this->set('units',$units);
     }
 
 
     public function add() {
-        $this->loadModel('RecordDrug');
+        $this->loadModel('RecordDrugUnit');
         $this->loadModel('Drug');
+        $this->loadModel('Unit');
         if ($this->request->is('post')) {
             $this->Record->create();
+            $conv_val = $this->Unit->find('first',
+            array(
+                'conditions' => array(
+                    'id' => $this->request->data['RecordDrugUnit']['unit_id']),
+                'fields' => array('conversion')
+                ));
+            $this->request->data['RecordDrugUnit']['dose'] = (int)$this->request->data['RecordDrugUnit']['dose'] * (float)$conv_val['Unit']['conversion'];
             $this->request->data['Record']['user_id'] = $this->Auth->user('id');
-            if ($this->RecordDrug->saveAssociated($this->request->data, array('deep' => TRUE))) {
+            if ($this->RecordDrugUnit->saveAssociated($this->request->data, array('deep' => TRUE))) {
                 $this->Session->setFlash('Your post has been saved.');
                 $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('Unable to add your post.');
             }
         }
-        $this->loadModel('Drug');
         
         /*----
         * drugList
         ----*/
         $drugList = $this->Drug->drugList();
         $this->set('drugList',$drugList);
-
+        
+        /*----
+        * unitList
+        ----*/
+        $unitList = $this->Unit->unitList();
+        $this->set('unitList',$unitList);
 
     }
 
     function edit ($id = NULL) {
-        $this->loadModel('RecordDrug');
+        $this->loadModel('RecordDrugUnit');
         $this->loadModel('Drug');
+        $this->loadModel('Unit');
     	if (!$id) {
             throw new NotFoundException(__('Invalid post'));
         }
 
-        $record=$this->Record->findById($id);
+        $record=$this->RecordDrugUnit->findByrecordId($id);
         if(!$record) {
             throw new NotFoundException(__('Invalid post'));
         }
-
+        /*----
+        * Divide dose by
+        * associated conversion
+        -----*/
+        $record['RecordDrugUnit']['dose'] = $record['RecordDrugUnit']['dose'] / $record['Unit']['conversion'];
         if($this->request->is('post')) {
-            $this->Record->id = $id;
-            if ($this->Record->save($this->request->data)) {
+            $this->request->data['Record']['id'] = $id;
+            $this->request->data['RecordDrugUnit']['id'] = $id;
+            $this->request->data['Record']['user_id'] = $this->Auth->user('id');
+            /*----
+            * Multiply dose by
+            * associated conversion
+            -----*/
+            $conv_val = $this->Unit->find('first',
+            array(
+                'conditions' => array(
+                    'id' => $this->request->data['RecordDrugUnit']['unit_id']),
+                'fields' => array('conversion')
+                ));
+            $this->request->data['RecordDrugUnit']['dose'] = (int)$this->request->data['RecordDrugUnit']['dose'] * (int)$conv_val['Unit']['conversion'];
+            if ($this->RecordDrugUnit->saveAssociated($this->request->data, array('deep' => TRUE))) {
                 $this->Session->setFlash('Your log has been updated.');
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -103,6 +146,13 @@ class RecordsController extends AppController {
         ----*/
         $drugList = $this->Drug->drugList();
         $this->set('drugList',$drugList);
+        
+        /*----
+        * unitList
+        ----*/
+        $unitList = $this->Unit->unitList();
+        $this->set('unitList',$unitList);
+
     }
 
     function delete($id = NULL) {
@@ -126,5 +176,6 @@ class RecordsController extends AppController {
         }
         return false;
     }
+
 
 }

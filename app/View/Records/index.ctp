@@ -1,3 +1,5 @@
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="scripts/js.js"></script>
 <script type='text/javascript' src='http://www.google.com/jsapi'></script>
@@ -38,12 +40,17 @@
             <div class='blockSmall'></div>
             <center>
                 <h5>Total Dose per Substance</h5>
-                <span class='smallSuper'>units coming soon</span>
-            </br>
+           </br>
                 </br>
-                <?php foreach ($output as $compound=> $sum) {
-                    echo "<span class='small'>".$compound." :</span> <span class='smallx'>".$sum."</span></br>";
+                <?php
+                foreach ($units as $unit) {
+                    echo "<span class='small'>".$unit['Drug']['drug']." :</span> <span class='smallx'>".$unit['RecordDrugUnit']['sum']." ".$unit['Unit']['unit']."</span></br>";
                 }
+                /*foreach ($units as $unit=> $amounts) {
+                    foreach($amounts as $amount=>$drug){
+                        echo "<span class='small'>".$drug." :</span> <span class='smallx'>".$amount." ".$unit."</span></br>";
+                    }
+                }*/
                 ?>
             </center>
             </br>
@@ -60,13 +67,16 @@
             echo " | ";
             echo $this->Paginator->sort('Record.dose_date', 'date');
             echo " | ";
-            echo $this->Paginator->sort('Record.dose', 'dose');
+            echo $this->Paginator->sort('RecordDrugUnit.dose', 'dose');
             ?>
             </span>
         </br>
     </br>
                 <?php foreach ($log as $log): ?>
-                        <div class='borderTop padding'>
+                <?php
+                        $divided_dose = $log['RecordDrugUnit']['dose'] / $log['Unit']['conversion'];
+                ?>
+                        <div class='borderLeft padding'>
                                 <div class='left colSmallMed'>
                                         <span class='medium'><?php echo $log['Drug']['drug']; ?></span>
                                         </br>
@@ -79,7 +89,7 @@
                                 </div>
                                 <div class='right colSmallMed'>
                                         </br>
-                                        <span class='small'>Dose: </span><span class='smallx red'><?php echo $log['Record']['dose']; ?> <?php echo $log['Record']['unit']; ?>
+                                        <span class='small'>Dose: </span><span class='smallx red'><?php echo $divided_dose; ?> <?php echo $log['Unit']['unit']; ?>
                                         </span>
                                         </br>
                                         </br>
@@ -89,6 +99,9 @@
                                 </div>
                                 <div class='clear'></div>
                         </div>
+                    </br>
+                </br>
+            </br>
                 <?php endforeach; ?>
                 <?php unset($post); ?>
                 </br>

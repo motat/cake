@@ -11,7 +11,8 @@ class FrontsController extends AppController {
         /*----
         * global pieChart
         ----*/
-        $pieChart = $this->Record->pieChart();
+        $limit = 20;
+        $pieChart = $this->Record->pieChart($limit);
         $this->set('output',$pieChart); 
 	}
 

@@ -24,7 +24,7 @@
             </div>
             <div class='colFull'>
                 <?php
-                echo $this->Form->input('RecordDrug.drug_id', array('placeholder' => 'Substance', 'options'=>$drugList,'label' => false,'type' => 'select')); ?>
+                echo $this->Form->input('RecordDrugUnit.drug_id', array('placeholder' => 'Substance', 'options'=>$drugList,'label' => false,'type' => 'select')); ?>
             </div>
             </br>
             </br>
@@ -32,11 +32,11 @@
             <div class='colFull'>
                 <div class='colLarge left'>
                     <?php
-                    echo $this->Form->input('Record.dose', array('placeholder' => 'Dose', 'label' => false)); ?>
+                    echo $this->Form->input('RecordDrugUnit.dose', array('placeholder' => 'Dose', 'label' => false)); ?>
                 </div>
                 <div class='colSmall right'>
                     <?php
-                    echo $this->Form->input('Record.unit', array('placeholder'=>'Unit', 'label' => false,'id' => 'autocompleteunit')); ?>
+                    echo $this->Form->input('RecordDrugUnit.unit_id', array('placeholder'=>'Unit', 'options'=>$unitList, 'label' => false,'type'=>'select')); ?>
                 </div>
                 <div class='clear'></div>
             </div>

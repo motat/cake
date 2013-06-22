@@ -55,7 +55,7 @@ html,body { height:100% }
 ##############*/
 
 .contArrow { position:absolute; height:30px; width:70px; bottom:0; right:0;}
-#arrow {  width: 0; 
+.arrow {  width: 0; 
   height: 0; 
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
@@ -64,7 +64,6 @@ html,body { height:100% }
 
 
 .message {
-  background-color:#ff4f4f;
   clear: both;
   color: black;
   width:500px;
@@ -73,7 +72,8 @@ html,body { height:100% }
   margin: 1em 1em;
   padding: 5px;
   border:3px;
-  border-left-style:solid;
+  border-bottom-style:solid;
+  border-color:#ff4f4f;
 }
 
 .bar { height:20px; background-color:#4f4fff; width:100%; }
@@ -82,6 +82,7 @@ html,body { height:100% }
 .blockSmall { height:50px; margin:0 auto; }
 .borderThick { border:5px; border-style:solid; }
 .borderTop { border:1px; border-top-style:solid; }
+.borderLeft {  border-left:5px solid; border-right:5px solid; }
 .box { margin-left:20px; max-width:400px; margin-top:20px; border:3px; border-left-style:solid; }
 .clear { clear:both; }
 .center {  text-align:center; }
@@ -97,8 +98,8 @@ html,body { height:100% }
 .head { width:100%; padding:5px; background-color:#C9C9C9; }
 .left { float:left; overflow:hidden; }
 .linkBox { margin-top:5px; padding:5px 15px 5px 15px; text-align:center; border:1px; border-color:white; border-style:solid;}
-.linkBox:hover{ background-color:#C1DBC1;}
-.nav { height:50px; background-color:#4BA66A; width:100%; }
+.linkBox:hover{ background-color:#C1DBC1; border:1px; border-style:solid; border-color:black;}
+.nav { height:110px; background-color:#4BA66A; width:100%; }
 .none { border:0; }
 .right { float:right; overflow:hidden; }
 .row { float:left; margin-right:50px; }

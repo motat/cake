@@ -3,7 +3,7 @@ App::import('component' , 'CakeSession');
 class Record extends AppModel {
     public $actsAs = array('Containable');
     public $helpers = array('Html', 'Form', 'Session');
-    public $hasMany = array('RecordDrug');
+    public $hasMany = array('RecordDrugUnit');
 
     public function index(){
         $this->set('title_for_layout', 'Drugrecord');
@@ -16,7 +16,7 @@ class Record extends AppModel {
         * the operation in a model again
         */
         $records = array();
-        $records=$this->RecordDrug->find('all', 
+        $records=$this->RecordDrugUnit->find('list', 
             array(
                 'fields' => 
                     array(
@@ -24,11 +24,11 @@ class Record extends AppModel {
                         'Record.dose_date',
                         'Drug.drug',
                         'Record.dose',
-                        'Record.unit',
+                        'Unit.unit',
                         'Record.title',
                         'Record.report'
                     ),
-                'contain' => array('Drug', 'Record'),
+                'contain' => array('Drug', 'Record','Unit'),
                 'order' => array('Record.dose_date' => 'desc'),
                 'conditions' => array('Record.user_id' => CakeSession::read('Auth.User.id'))
             )
@@ -36,25 +36,22 @@ class Record extends AppModel {
         return $records;
     }
 
-    function pieChart($conditions = null) {
+    function pieChart($limit = null, $conditions = null) {
         //Get Data for PieChart
-        $this->RecordDrug->virtualFields['sum'] ='COUNT(*)';
+        $this->RecordDrugUnit->virtualFields['sum'] ='COUNT(*)';
         $records = array();
-        $records=$this->RecordDrug->find('list',
+        $records=$this->RecordDrugUnit->find('list',
             array(
                 'conditions' => $conditions,
-                'fields' => array( 'Drug.drug', 'sum'),
-                'contain' => array( 'Drug', 'Record' ),
+                'fields' => array('Drug.drug', 'sum'),
+                'order' => array('sum' => 'desc'),
+                'limit' => $limit,
+                'contain' => array( 'Drug', 'Record', 'Unit'),
                 'group'  => 'Drug.Drug'
                 ));
         return $records;
     }
 
-    public function graph(){
-    }
-
-    public function test(){
-    }
 
     public function isOwnedBy($record, $user) {
     	return $this->field('id', array('id' =>$record, 'user_id' => $user)) === $record;
